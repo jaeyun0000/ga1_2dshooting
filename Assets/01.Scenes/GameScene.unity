@@ -526,8 +526,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFire
   bulletPrefab: {fileID: 1578199740644138786, guid: 0d3f7dfcdd9a01f4d9c5192613cad221, type: 3}
   subBulletPrefab: {fileID: 1929395354498097434, guid: 1a7e19e455cc14142a47abe7d3d8e651, type: 3}
-  LeftFirePoint: {fileID: 741047753}
-  RightFirePoint: {fileID: 1977585935}
+  leftFirePoint: {fileID: 741047753}
+  rightFirePoint: {fileID: 1977585935}
   leftSubFirePoint: {fileID: 491251280}
   rightSubFirePoint: {fileID: 1704838097}
 --- !u!1 &1704838096
