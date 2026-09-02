@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -6,6 +7,12 @@ public class PlayerMove : MonoBehaviour
     
     // 필요 필드:
     public float Speed = 1f;
+
+    private float minX = -3f;
+    private float maxX = 3f;
+    private float minY = -4.6f;
+    private float maxY = -0.4f;
+    
     
     
     // 매 프레임마다 실행된다.
@@ -21,19 +28,32 @@ public class PlayerMove : MonoBehaviour
         Vector2 direction = new Vector2(h, v); // 방향
 
         // 1. 이미지와 같이 빨간색 영역 안에서만 캐릭터가 이동할 수 있게...
-        if (transform.position.x >= 1.86 && direction.x > 0 || transform.position.x <= -1.86 && direction.x < 0)
-        {
-            direction.x = 0;
-        }
-
-        if (transform.position.y >= -0.4 && direction.y > 0 || transform.position.y <= -4.6 && direction.y < 0)
+        // if (transform.position.x >= 1.86 && direction.x > 0 || transform.position.x <= -1.86 && direction.x < 0)
+        // {
+        //     direction.x = 0;
+        // }
+        
+        if (transform.position.y >= maxY && direction.y > 0 || transform.position.y <= minY && direction.y < 0)
         {
             direction.y = 0;
         }
         
+        
         Vector2 nomalizedSpeed = (direction.normalized * Speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         transform.Translate(nomalizedSpeed * Time.deltaTime);
 
+        
+        // 2. 좌우 이동에 있어 한쪽으로 쭈욱 이동하면 반대쪽에서 나오게..
+        if (transform.position.x <= minX)
+        {
+            transform.position = new Vector2 (maxX - 0.1f, transform.position.y);
+        }
+        if (transform.position.x >= maxX)
+        {
+            transform.position = new Vector2 (minX + 0.1f, transform.position.y);
+        }
+        
+        
         // // 1. 키보드 입력을 받는다.
         // if (Input.GetKey(KeyCode.LeftArrow))
         // {
@@ -58,8 +78,7 @@ public class PlayerMove : MonoBehaviour
 
         
         
-        // 2. 좌우 이동에 있어 한쪽으로 쭈욱 이동하면 반대쪽에서 나오게..
-        
+
         
         // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
         // if (Input.GetKeyDown(KeyCode.E))
