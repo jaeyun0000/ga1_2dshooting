@@ -5,7 +5,7 @@ public class PlayerMove : MonoBehaviour
     // 목적: 키보드 입력에 따라서 플레이어 이동 처리를 하고 싶다.
     
     // 필요 필드:
-    public float Speed = 0.05f;
+    public float Speed = 1f;
     
     
     // 매 프레임마다 실행된다.
@@ -20,8 +20,19 @@ public class PlayerMove : MonoBehaviour
         
         Vector2 direction = new Vector2(h, v); // 방향
 
-        Vector2 nomalizedSpeed = (direction * Speed).normalized; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
-        transform.Translate(direction * nomalizedSpeed * Time.deltaTime);
+        // 1. 이미지와 같이 빨간색 영역 안에서만 캐릭터가 이동할 수 있게...
+        if (transform.position.x >= 1.86 && direction.x > 0 || transform.position.x <= -1.86 && direction.x < 0)
+        {
+            direction.x = 0;
+        }
+
+        if (transform.position.y >= -0.4 && direction.y > 0 || transform.position.y <= -4.6 && direction.y < 0)
+        {
+            direction.y = 0;
+        }
+        
+        Vector2 nomalizedSpeed = (direction.normalized * Speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        transform.Translate(nomalizedSpeed * Time.deltaTime);
 
         // // 1. 키보드 입력을 받는다.
         // if (Input.GetKey(KeyCode.LeftArrow))
@@ -42,5 +53,23 @@ public class PlayerMove : MonoBehaviour
         
         // 새로운 위치 = 현재 위치 + (방향 * 속력 * 시간)
         // transform.position = transform.position + (Vector3)direction * Speed * Time.deltaTime;
+        
+        
+
+        
+        
+        // 2. 좌우 이동에 있어 한쪽으로 쭈욱 이동하면 반대쪽에서 나오게..
+        
+        
+        // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     Speed += 0.1f;
+        // }
+        //
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     Speed -= 0.1f;
+        // }
     }
 }
