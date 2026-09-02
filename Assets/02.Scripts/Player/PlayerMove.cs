@@ -54,6 +54,18 @@ public class PlayerMove : MonoBehaviour
         }
         
         
+        // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Speed += 0.1f;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Speed -= 0.1f;
+        }
+        
+        
         // // 1. 키보드 입력을 받는다.
         // if (Input.GetKey(KeyCode.LeftArrow))
         // {
@@ -73,22 +85,5 @@ public class PlayerMove : MonoBehaviour
         
         // 새로운 위치 = 현재 위치 + (방향 * 속력 * 시간)
         // transform.position = transform.position + (Vector3)direction * Speed * Time.deltaTime;
-        
-        
-
-        
-        
-
-        
-        // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
-        // if (Input.GetKeyDown(KeyCode.E))
-        // {
-        //     Speed += 0.1f;
-        // }
-        //
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     Speed -= 0.1f;
-        // }
     }
 }
