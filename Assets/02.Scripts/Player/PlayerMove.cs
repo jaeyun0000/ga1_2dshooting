@@ -12,14 +12,16 @@ public class PlayerMove : MonoBehaviour
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이
     private void Update()
     {
-        float h = Input.GetAxis("Horizontal");  // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
-        float v = Input.GetAxis("Vertical");    // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
+        // GetAxis / GetAxisRaw 차이는 속도가 점차 증가/감소하냐, 바로 증가/감소 하냐의 차이
+        float h = Input.GetAxisRaw("Horizontal");  // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
+        float v = Input.GetAxisRaw("Vertical");    // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
         
         Debug.Log($"h:{h}, v:{v}");
         
         Vector2 direction = new Vector2(h, v); // 방향
-        
-        transform.Translate(direction * Speed * Time.deltaTime);
+
+        Vector2 nomalizedSpeed = (direction * Speed).normalized; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        transform.Translate(direction * nomalizedSpeed * Time.deltaTime);
 
         // // 1. 키보드 입력을 받는다.
         // if (Input.GetKey(KeyCode.LeftArrow))
