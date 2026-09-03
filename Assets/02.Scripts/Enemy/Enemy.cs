@@ -1,5 +1,10 @@
 using UnityEngine;
 
+enum EnemyType
+{
+    Normal
+}
+
 public class Enemy : MonoBehaviour
 {
     public float health = 100f;
