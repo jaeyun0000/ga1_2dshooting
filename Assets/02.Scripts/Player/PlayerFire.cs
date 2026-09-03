@@ -18,7 +18,7 @@ public class PlayerFire : MonoBehaviour
     public float cooldown = 1f;
     public float cooldownTimer = 0f;
 
-    public int autoAttack = 1;
+    public int autoAttack = 0;
 
 
     private void Update()

@@ -1,20 +1,24 @@
+using System;
 using UnityEngine;
 
-enum EnemyType
+public abstract class Enemy : MonoBehaviour
 {
-    Normal
-}
-
-public class Enemy : MonoBehaviour
-{
-    public float health = 100f;
-    public float moveSpeed = 2f;
-
+    [SerializeField] private int _health = 100;
+    [SerializeField] protected float _moveSpeed = 2f;
 
     private void Update()
     {
-        Vector2 direction = Vector2.down;
+        Move();
+    }
 
-        transform.Translate(direction * moveSpeed * Time.deltaTime);
+    protected abstract void Move();
+
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+        if (_health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
