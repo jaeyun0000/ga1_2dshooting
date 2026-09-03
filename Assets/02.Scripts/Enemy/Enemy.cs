@@ -1,0 +1,13 @@
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public float speed = 2f;
+
+
+    private void Update()
+    {
+        Vector2 direction = Vector2.down;
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
+}
