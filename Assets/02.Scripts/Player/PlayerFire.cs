@@ -7,7 +7,7 @@ public class PlayerFire : MonoBehaviour
     // - 총알 프리팹
     public GameObject bulletPrefab;
     public GameObject subBulletPrefab;
-    
+
     // - 생성 위치(총구)
     // public Transform[] firePoint;
     public Transform leftFirePoint;
@@ -15,12 +15,14 @@ public class PlayerFire : MonoBehaviour
     public Transform leftSubFirePoint;
     public Transform rightSubFirePoint;
 
-    private float cooldown = 1f;
+    public float cooldown = 1f;
     public float cooldownTimer = 0f;
 
-    private int autoAttack = 0;
-    
-    
+    public int autoAttack = 0;
+
+    private int _test;
+
+
     private void Update()
     {
         if (cooldownTimer > 0)
@@ -39,7 +41,7 @@ public class PlayerFire : MonoBehaviour
                 autoAttack = 0;
             }
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && autoAttack == 0 && cooldownTimer <= 0)
         {
             Fire();
@@ -59,13 +61,13 @@ public class PlayerFire : MonoBehaviour
         GameObject rightBullet = Instantiate(bulletPrefab);
         GameObject leftSubBullet = Instantiate(subBulletPrefab);
         GameObject rightSubBullet = Instantiate(subBulletPrefab);
-            
+
         leftBullet.transform.position = leftFirePoint.position;
         rightBullet.transform.position = rightFirePoint.position;
         leftSubBullet.transform.position = leftSubFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
         rightSubBullet.transform.position = rightSubFirePoint.position;
-            
-            
+
+
         cooldownTimer = cooldown;
     }
 }

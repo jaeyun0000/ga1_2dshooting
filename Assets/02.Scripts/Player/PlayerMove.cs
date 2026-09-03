@@ -5,20 +5,19 @@ public class PlayerMove : MonoBehaviour
 {
     public float Speed = 1f;
 
-    private float minX = -3f;
-    private float maxX = 3f;
-    private float minY = -4.6f;
-    private float maxY = -0.4f;
-    
-    
-    
+    public float minX = -3f;
+    public float maxX = 3f;
+    public float minY = -4.6f;
+    public float maxY = -0.4f;
+
+
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이
     private void Update()
     {
         Move();
-        
+
         SpeedUpDown();
-        
+
         // 게임에는 벡터라는 타입이 있다. 벡터는 (크기와 방향을 의미한다)
         // // 속도 = 방향 * 속력      // 매직 넘버란: 보는 사람에 따라 의미가 달라질 수 있는
         // // deltaTime: 이전 프레임으로부터 지금 프레임까지 시간이 얼마나 지났는지 MS로 반환
@@ -30,29 +29,30 @@ public class PlayerMove : MonoBehaviour
     private void Move()
     {
         // GetAxis / GetAxisRaw 차이는 속도가 점차 증가/감소하냐, 바로 증가/감소 하냐의 차이
-        float h = Input.GetAxisRaw("Horizontal");  // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
-        float v = Input.GetAxisRaw("Vertical");    // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
-        
+        float h = Input.GetAxisRaw("Horizontal"); // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
+        float v = Input.GetAxisRaw("Vertical"); // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
+
         Vector2 direction = new Vector2(h, v);
-        
-        
+
+
         if (transform.position.y >= maxY && direction.y > 0 || transform.position.y <= minY && direction.y < 0)
         {
             direction.y = 0;
         }
-        
-        
+
+
         Vector2 nomalizedSpeed = (direction * Speed).normalized; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         transform.Translate(nomalizedSpeed * Time.deltaTime);
 
-        
+
         if (transform.position.x <= minX)
         {
-            transform.position = new Vector2 (maxX - 0.1f, transform.position.y);
+            transform.position = new Vector2(maxX - 0.1f, transform.position.y);
         }
+
         if (transform.position.x >= maxX)
         {
-            transform.position = new Vector2 (minX + 0.1f, transform.position.y);
+            transform.position = new Vector2(minX + 0.1f, transform.position.y);
         }
     }
 
@@ -63,7 +63,7 @@ public class PlayerMove : MonoBehaviour
         {
             Speed += 1f;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Speed -= 1f;
