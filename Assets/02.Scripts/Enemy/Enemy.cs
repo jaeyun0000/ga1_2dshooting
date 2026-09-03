@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public float health = 100f;
     public float moveSpeed = 2f;
 
 

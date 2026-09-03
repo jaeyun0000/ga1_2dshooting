@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        Vector2 nomalizedSpeed = (direction * Speed).normalized; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        Vector2 nomalizedSpeed = (direction.normalized * Speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         transform.Translate(nomalizedSpeed * Time.deltaTime);
 
 
