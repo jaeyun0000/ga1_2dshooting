@@ -34,20 +34,20 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
-        int _spawnEnemy;
-        _spawnEnemy = UnityEngine.Random.Range(1, 101);
+        int spawnEnemy;
+        spawnEnemy = UnityEngine.Random.Range(1, 101);
 
-        if (_spawnEnemy <= 20)
+        if (spawnEnemy <= 20)
         {
             Enemy enemy = Instantiate(_homingEnemyPrefab);
             enemy.transform.position = transform.position;
         }
-        else if (_spawnEnemy <= 50)
+        else if (spawnEnemy <= 50)
         {
             Enemy enemy = Instantiate(_aimedEnemyPrefab);
             enemy.transform.position = transform.position;
         }
-        else if (_spawnEnemy <= 100)
+        else if (spawnEnemy <= 100)
         {
             Enemy enemy = Instantiate(_downwardEnemyPrefab);
             enemy.transform.position = transform.position;
