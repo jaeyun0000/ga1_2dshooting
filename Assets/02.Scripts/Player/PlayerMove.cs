@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float Speed = 1f;
+    public float speed = 1f;
 
-    public float minX = -3f;
-    public float maxX = 3f;
-    public float minY = -4.6f;
-    public float maxY = -0.4f;
+    private float _minX = -3f;
+    private float _maxX = 3f;
+    private float _minY = -4.6f;
+    private float _maxY = -0.4f;
 
 
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이
@@ -35,24 +35,24 @@ public class PlayerMove : MonoBehaviour
         Vector2 direction = new Vector2(h, v);
 
 
-        if (transform.position.y >= maxY && direction.y > 0 || transform.position.y <= minY && direction.y < 0)
+        if (transform.position.y >= _maxY && direction.y > 0 || transform.position.y <= _minY && direction.y < 0)
         {
             direction.y = 0;
         }
 
 
-        Vector2 nomalizedSpeed = (direction.normalized * Speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        Vector2 nomalizedSpeed = (direction.normalized * speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         transform.Translate(nomalizedSpeed * Time.deltaTime);
 
 
-        if (transform.position.x <= minX)
+        if (transform.position.x <= _minX)
         {
-            transform.position = new Vector2(maxX - 0.1f, transform.position.y);
+            transform.position = new Vector2(_maxX - 0.1f, transform.position.y);
         }
 
-        if (transform.position.x >= maxX)
+        if (transform.position.x >= _maxX)
         {
-            transform.position = new Vector2(minX + 0.1f, transform.position.y);
+            transform.position = new Vector2(_minX + 0.1f, transform.position.y);
         }
     }
 
@@ -61,12 +61,12 @@ public class PlayerMove : MonoBehaviour
         // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Speed += 1f;
+            speed += 1f;
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Speed -= 1f;
+            speed -= 1f;
         }
     }
 }
