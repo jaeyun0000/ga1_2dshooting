@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 1427838914}
   - component: {fileID: 1427838913}
   - component: {fileID: 1427838916}
+  - component: {fileID: 1427838919}
   - component: {fileID: 1427838918}
   - component: {fileID: 1427838917}
   m_Layer: 6
@@ -496,11 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31a0bed60095d2418be491939bec0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  Speed: 1
-  minX: -3
-  maxX: 3
-  minY: -4.6
-  maxY: -0.4
+  _speed: 1
 --- !u!212 &1427838914
 SpriteRenderer:
   serializedVersion: 2
@@ -657,7 +654,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -677,6 +674,19 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 1
+--- !u!114 &1427838919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427838912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 486a65cafc79d1541b5eb0dc31fde164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHp
+  _hp: 100
 --- !u!1 &1704838096
 GameObject:
   m_ObjectHideFlags: 0

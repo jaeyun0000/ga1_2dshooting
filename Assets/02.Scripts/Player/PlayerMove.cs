@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float speed = 1f;
+    [SerializeField] float _speed = 1f;
 
     private float _minX = -3f;
     private float _maxX = 3f;
@@ -41,7 +41,7 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        Vector2 nomalizedSpeed = (direction.normalized * speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        Vector2 nomalizedSpeed = (direction.normalized * _speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         transform.Translate(nomalizedSpeed * Time.deltaTime);
 
 
@@ -61,12 +61,12 @@ public class PlayerMove : MonoBehaviour
         // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
         if (Input.GetKeyDown(KeyCode.E))
         {
-            speed += 1f;
+            _speed += 1f;
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            speed -= 1f;
+            _speed -= 1f;
         }
     }
 }

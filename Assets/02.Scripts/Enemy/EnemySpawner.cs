@@ -9,7 +9,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float _spawnInterval = 3f;
 
     private float _timer;
-    private int _spawnEnemy;
 
     // - 생성할 프리팹
     [Header("스폰할 적 프리팹")]
@@ -35,6 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
+        int _spawnEnemy;
         _spawnEnemy = UnityEngine.Random.Range(1, 101);
 
         if (_spawnEnemy <= 20)
