@@ -132,6 +132,128 @@ player.TakeDamage(damage);
 4. 이벤트, 인터페이스, 컴포지션 중 어떤 방법이 적절한가?
 5. 변경 후 클래스 간 관계가 어떻게 달라지는가?
 
+
+## 캐싱과 재사용
+
+반복적인 탐색, 계산 또는 객체 생성을 줄이기 위해 캐싱이 필요한지 확인한다. 단, 한 번만 사용하거나 성능에 영향이 거의 없는 값까지 무조건 캐싱하도록 제안하지 않는다.
+
+### 컴포넌트와 객체 참조 캐싱
+
+`Update()`, `FixedUpdate()`처럼 자주 호출되는 메서드에서 다음 탐색이 반복되지 않는지 확인한다.
+
+* `GetComponent`
+* `Find`, `FindObjectOfType`
+* `GameObject.Find`
+* `Camera.main`
+* 자식 오브젝트 또는 특정 컴포넌트 탐색
+
+```csharp
+private Rigidbody playerRigidbody;
+
+private void Awake()
+{
+    playerRigidbody = GetComponent<Rigidbody>();
+}
+
+private void FixedUpdate()
+{
+    playerRigidbody.AddForce(moveDirection);
+}
+```
+
+캐싱된 참조를 검토할 때는 다음 내용도 함께 확인한다.
+
+* 캐싱한 객체가 실행 중 교체되거나 파괴될 가능성이 있는가?
+* 오브젝트가 다시 활성화될 때 캐시가 여전히 유효한가?
+* Inspector 할당과 런타임 탐색 중 어떤 방식이 더 적절한가?
+* 필수 컴포넌트를 `[RequireComponent]` 또는 검증 코드로 보장할 필요가 있는가?
+
+파괴된 `UnityEngine.Object`는 일반적인 C# 객체와 Null 판정 방식이 다르므로, 캐싱된 참조가 수명 종료 후에도 사용되지 않는지 확인한다.
+
+### 문자열 기반 ID 캐싱
+
+애니메이션 파라미터나 셰이더 프로퍼티를 반복적으로 문자열로 조회하고 있다면 ID를 캐싱하는 방법을 고려한다.
+
+```csharp
+private static readonly int SpeedHash = Animator.StringToHash("Speed");
+private static readonly int ColorId = Shader.PropertyToID("_BaseColor");
+```
+
+```csharp
+animator.SetFloat(SpeedHash, currentSpeed);
+material.SetColor(ColorId, targetColor);
+```
+
+문자열을 ID로 변환하는 코드가 초기화 시 한 번만 실행된다면 반드시 캐싱하도록 요구하지 않는다. 프레임마다 반복되거나 여러 객체에서 빈번하게 실행되는 경우에 우선적으로 제안한다.
+
+### 계산 결과 캐싱
+
+입력값이 변하지 않았는데 다음과 같은 계산이 반복되는지 확인한다.
+
+* 경로 탐색과 거리 계산
+* 컬렉션 검색과 정렬
+* LINQ 쿼리 결과
+* 동일한 데이터의 변환 결과
+* 게임 설정 또는 테이블 데이터 조회
+* 복잡한 수학 계산
+
+계산 결과를 캐싱하도록 제안할 때는 캐시를 언제 갱신하거나 제거할지도 함께 검토한다.
+
+```csharp
+private int cachedLevel = -1;
+private float cachedDamage;
+
+public float GetDamage(int level)
+{
+    if (cachedLevel == level)
+    {
+        return cachedDamage;
+    }
+
+    cachedLevel = level;
+    cachedDamage = CalculateDamage(level);
+    return cachedDamage;
+}
+```
+
+입력 데이터가 변경되었는데 기존 캐시가 사용되면 잘못된 게임 상태나 오래된 UI가 표시될 수 있다. 따라서 단순히 “캐싱이 필요하다”고 작성하지 말고 다음 내용을 구체적으로 설명한다.
+
+1. 어떤 연산이나 탐색이 반복되고 있는가?
+2. 얼마나 자주 호출되는가?
+3. 어떤 값을 캐싱해야 하는가?
+4. 어떤 조건에서 캐시를 갱신하거나 무효화해야 하는가?
+5. 캐싱으로 증가하는 메모리 사용량은 적절한가?
+
+### 컬렉션과 객체 재사용
+
+자주 호출되는 코드에서 동일한 목적의 배열, 리스트 또는 임시 객체가 반복 생성되는지 확인한다.
+
+```csharp
+private readonly List<Enemy> nearbyEnemies = new();
+
+private void FindNearbyEnemies()
+{
+    nearbyEnemies.Clear();
+    // 검색 결과 추가
+}
+```
+
+컬렉션을 재사용할 때는 이전 데이터가 남지 않도록 초기화되는지, 외부 코드가 해당 컬렉션의 참조를 보관하고 있지 않은지 확인한다.
+
+`Instantiate()`와 `Destroy()`가 빈번한 총알, 적, 이펙트에는 오브젝트 풀링을 고려할 수 있다. 다만 생성 빈도가 낮거나 오브젝트 수가 적다면 풀링으로 인한 구조 복잡성이 더 커질 수 있으므로 실제 사용 빈도와 성능 영향을 기준으로 제안한다.
+
+### 캐싱 적용 시 주의점
+
+* 실제 병목이 확인되지 않은 코드에 과도한 캐싱을 요구하지 않는다.
+* 캐시 갱신 조건이 누락되어 오래된 데이터가 사용되지 않는지 확인한다.
+* 캐시가 오브젝트 수명보다 오래 유지되어 파괴된 객체를 참조하지 않는지 확인한다.
+* `static` 캐시가 씬 전환 후에도 불필요한 상태나 참조를 유지하지 않는지 확인한다.
+* 캐시 크기가 계속 증가하여 메모리 누수처럼 동작하지 않는지 확인한다.
+* 원본 데이터와 캐시 데이터 중 어느 쪽이 최신 상태인지 불분명해지지 않는지 확인한다.
+* 캐싱으로 코드 복잡도가 증가한다면 얻을 수 있는 성능상 이점과 비교한다.
+* 성능 문제를 지적할 때는 가능하면 Profiler 측정 결과나 호출 빈도를 근거로 삼는다.
+
+
 ## SOLID 원칙
 
 SOLID 원칙을 기준으로 설계를 검토하되, 모든 코드에 인터페이스와 디자인 패턴을 강제하지 않는다.
@@ -344,5 +466,4 @@ SOLID 위반, 낮은 응집도, 높은 결합도 등 구조적인 문제가 명�
 
 실제로 잘 작성된 부분이 있을 때만 간단히 작성한다.
 
-문제를 찾지 못했다면 억지로 문제를 만들지 말고, 확인한 범위와 문제가 발견되지 않았음을 명시한다.
-.
+문제를 찾지 못했다면 억지로 문제를 만들지 말고, 확인한 범위와 문제가 발견되지 않았음을 명시한다..
