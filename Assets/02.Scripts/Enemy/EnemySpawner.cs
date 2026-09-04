@@ -12,9 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     // - 생성할 프리팹
     [Header("스폰할 적 프리팹")]
-    [SerializeField] private Enemy _downwardEnemyPrefab;
-    [SerializeField] private Enemy _aimedEnemyPrefab;
-    [SerializeField] private Enemy _homingEnemyPrefab;
+    [SerializeField] private Enemy[] _enemyPrefabs;
 
     private void Update()
     {
@@ -34,23 +32,29 @@ public class EnemySpawner : MonoBehaviour
 
     private void Spawn()
     {
+        // 50%: Downward
+        // 30%: Aimed
+        // 20%: Homing
         int spawnEnemy;
+        int enemyIndex = 0;
         spawnEnemy = UnityEngine.Random.Range(1, 101);
 
+        // Todo: Scrptable Object를 사용해서 리팩토링
+        // 이유1: 배열을 사용했지만 각 아이템이 어떤 프리팹인지 알 수가 없음
+        // 이유2: 각 Enemy 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵고 가독성 저하
         if (spawnEnemy <= 20)
         {
-            Enemy enemy = Instantiate(_homingEnemyPrefab);
-            enemy.transform.position = transform.position;
+            enemyIndex = 0;
         }
         else if (spawnEnemy <= 50)
         {
-            Enemy enemy = Instantiate(_aimedEnemyPrefab);
-            enemy.transform.position = transform.position;
+            enemyIndex = 1;
         }
         else if (spawnEnemy <= 100)
         {
-            Enemy enemy = Instantiate(_downwardEnemyPrefab);
-            enemy.transform.position = transform.position;
+            enemyIndex = 2;
         }
+        Enemy enemy = Instantiate(_enemyPrefabs[enemyIndex]);
+        enemy.transform.position = transform.position;
     }
 }
