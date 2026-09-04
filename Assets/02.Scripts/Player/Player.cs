@@ -12,4 +12,9 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void AddHealth(int heal)
+    {
+        _health += heal;
+    }
 }

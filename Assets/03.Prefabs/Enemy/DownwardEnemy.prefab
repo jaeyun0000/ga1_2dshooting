@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7421707746044714810}
   - component: {fileID: 1312473765035355294}
+  - component: {fileID: 4446164874238933554}
   - component: {fileID: 7101342310455537936}
   - component: {fileID: 6271905921832421399}
-  - component: {fileID: 4446164874238933554}
   m_Layer: 8
   m_Name: DownwardEnemy
   m_TagString: Enemy
@@ -94,6 +94,26 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4446164874238933554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6573438335832159204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed16581ea0551f4a9dec45490a27050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DownwardEnemy
+  _health: 100
+  _moveSpeed: 2
+  _damage: 5
+  itemDrop: 30
+  _itemPrefabs:
+  - {fileID: 83511513893558239, guid: f98b31bf24855db499b03add9c578a11, type: 3}
+  - {fileID: 1385972425206476423, guid: c064529c7c70e7f4c8e2bba6d1082220, type: 3}
+  - {fileID: 7617211968093735338, guid: d9d96c49c5717fb40be8c6fc203fff8b, type: 3}
 --- !u!61 &7101342310455537936
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -167,18 +187,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4446164874238933554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6573438335832159204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ed16581ea0551f4a9dec45490a27050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DownwardEnemy
-  _health: 100
-  _moveSpeed: 2
-  _damage: 5

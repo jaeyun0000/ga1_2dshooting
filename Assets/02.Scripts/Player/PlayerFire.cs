@@ -68,4 +68,9 @@ public class PlayerFire : MonoBehaviour
 
         cooldownTimer = cooldown;
     }
+
+    public void AddAttackSpeed(float attack)
+    {
+        cooldown -= attack;
+    }
 }

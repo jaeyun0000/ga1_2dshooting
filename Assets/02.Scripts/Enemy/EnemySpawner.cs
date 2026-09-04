@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
     // 필여 속성
     // - 타이머
     [Header("스폰 간격")]
-    [SerializeField] float _spawnInterval = 3f;
+    [SerializeField] private float _spawnInterval = 3f;
 
     private float _timer;
 
@@ -54,6 +54,7 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyIndex = 2;
         }
+
         Enemy enemy = Instantiate(_enemyPrefabs[enemyIndex]);
         enemy.transform.position = transform.position;
     }

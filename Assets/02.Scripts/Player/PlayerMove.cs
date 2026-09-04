@@ -69,4 +69,9 @@ public class PlayerMove : MonoBehaviour
             _speed -= 1f;
         }
     }
+
+    public void AddMoveSpeed(float speed)
+    {
+        _speed += speed;
+    }
 }
