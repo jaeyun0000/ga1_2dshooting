@@ -8,8 +8,6 @@ public class HomingEnemy : Enemy
     private void Start()
     {
         _player = GameObject.FindWithTag("Player");
-
-        _player = GameObject.FindWithTag("Player");
     }
 
     protected override void Move()
