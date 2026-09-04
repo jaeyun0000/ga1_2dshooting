@@ -11,6 +11,7 @@ public class AimedEnemy : Enemy
         if (_player == null)
         {
             Debug.Log("No player found");
+            return;
         }
 
         _direction = _player.transform.position - transform.position;
@@ -19,6 +20,8 @@ public class AimedEnemy : Enemy
 
     protected override void Move()
     {
+        if (_player == null) return;
+
         transform.Translate(_direction * _moveSpeed * Time.deltaTime);
     }
 }
