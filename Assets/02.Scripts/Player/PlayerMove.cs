@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField] Animator _animator;
+
     [SerializeField] private float _speed = 1f;
 
     private float _minX = -3f;
@@ -10,6 +12,13 @@ public class PlayerMove : MonoBehaviour
     private float _minY = -4.6f;
     private float _maxY = -0.4f;
 
+
+    // 객체가 생성될 때 한 번 실행된다.
+    private void Awake()
+    {
+        // 애니메이터 컴포넌트에 대한 참조를 가져와서 할당한다.
+        _animator = GetComponent<Animator>();
+    }
 
     // 초당 프레임 실행 횟수는: 별다른 설정이 없을 경우 가능한 많이
     private void Update()
@@ -33,6 +42,8 @@ public class PlayerMove : MonoBehaviour
         float v = Input.GetAxisRaw("Vertical"); // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
 
         Vector2 direction = new Vector2(h, v);
+
+        _animator.SetInteger("x", (int)direction.x);
 
 
         if (transform.position.y >= _maxY && direction.y > 0 || transform.position.y <= _minY && direction.y < 0)
