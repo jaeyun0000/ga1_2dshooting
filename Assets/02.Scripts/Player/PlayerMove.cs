@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    [SerializeField] float _speed = 1f;
+    [SerializeField] private float _speed = 1f;
 
     private float _minX = -3f;
     private float _maxX = 3f;
@@ -72,6 +72,14 @@ public class PlayerMove : MonoBehaviour
 
     public void AddMoveSpeed(float speed)
     {
-        _speed += speed;
+        if (_speed < 20f)
+        {
+            _speed += speed;
+            Debug.Log($"현재 이동 속도: {_speed}");
+        }
+        else
+        {
+            Debug.Log($"최대 이동 속도: {_speed}");
+        }
     }
 }

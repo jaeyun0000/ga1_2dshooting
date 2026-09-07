@@ -16,5 +16,8 @@ public class Player : MonoBehaviour
     public void AddHealth(int heal)
     {
         _health += heal;
+        Debug.Log($"현재 체력: {_health}");
     }
+
+    // GetComponent<PlayerMove>().변수 = 수정;
 }

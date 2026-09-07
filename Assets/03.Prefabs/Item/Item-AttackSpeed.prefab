@@ -106,6 +106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _itemType: 0
+  _itemValue: 0.1
+  _timer: 2
 --- !u!60 &-4931435238846870606
 PolygonCollider2D:
   m_ObjectHideFlags: 0

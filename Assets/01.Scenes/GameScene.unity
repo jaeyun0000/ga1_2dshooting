@@ -1170,13 +1170,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f621531cf73fc84e816b87b132b3a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFire
-  bulletPrefab: {fileID: 1578199740644138786, guid: 0d3f7dfcdd9a01f4d9c5192613cad221, type: 3}
-  subBulletPrefab: {fileID: 1929395354498097434, guid: 1a7e19e455cc14142a47abe7d3d8e651, type: 3}
-  leftFirePoint: {fileID: 741047753}
-  rightFirePoint: {fileID: 1977585935}
-  leftSubFirePoint: {fileID: 491251280}
-  rightSubFirePoint: {fileID: 1704838097}
-  cooldown: 1
+  _bulletPrefab: {fileID: 1578199740644138786, guid: 0d3f7dfcdd9a01f4d9c5192613cad221, type: 3}
+  _subBulletPrefab: {fileID: 1929395354498097434, guid: 1a7e19e455cc14142a47abe7d3d8e651, type: 3}
+  _leftFirePoint: {fileID: 741047753}
+  _rightFirePoint: {fileID: 1977585935}
+  _leftSubFirePoint: {fileID: 491251280}
+  _rightSubFirePoint: {fileID: 1704838097}
+  _attackCooldown: 1
   cooldownTimer: 0
   autoAttack: 0
 --- !u!50 &1427838917

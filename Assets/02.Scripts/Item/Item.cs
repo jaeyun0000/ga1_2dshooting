@@ -1,12 +1,5 @@
 using UnityEngine;
 
-enum ItemType
-{
-    PlayerAttackSpeed,
-    PlayerHealth,
-    PlayerMoveSpeed
-}
-
 public class Item : MonoBehaviour
 {
     private Player _player;
@@ -14,6 +7,7 @@ public class Item : MonoBehaviour
     private PlayerFire _playerFire;
     private float _moveSpeed = 4f;
     [SerializeField] private ItemType _itemType;
+    [SerializeField] private float _itemValue = 1;
     [SerializeField] private float _timer = 2f;
 
     private void Start()
@@ -57,13 +51,13 @@ public class Item : MonoBehaviour
             switch (_itemType)
             {
                 case ItemType.PlayerAttackSpeed:
-                    _playerFire.AddAttackSpeed(0.1f);
+                    _playerFire.AddAttackSpeed(_itemValue);
                     break;
                 case ItemType.PlayerHealth:
-                    _player.AddHealth(10);
+                    _player.AddHealth((int)_itemValue);
                     break;
                 case ItemType.PlayerMoveSpeed:
-                    _playerMove.AddMoveSpeed(1f);
+                    _playerMove.AddMoveSpeed(_itemValue);
                     break;
             }
 

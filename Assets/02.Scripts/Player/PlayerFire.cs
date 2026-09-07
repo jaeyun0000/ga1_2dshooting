@@ -1,31 +1,32 @@
 using UnityEngine;
+using System;
 
 public class PlayerFire : MonoBehaviour
 {
     // 목표: 스페이스바를 누를 때마다 총알을 생성해서 발사하고 싶다
     // 필요 속성
     // - 총알 프리팹
-    public GameObject bulletPrefab;
-    public GameObject subBulletPrefab;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private GameObject _subBulletPrefab;
 
     // - 생성 위치(총구)
     // public Transform[] firePoint;
-    public Transform leftFirePoint;
-    public Transform rightFirePoint;
-    public Transform leftSubFirePoint;
-    public Transform rightSubFirePoint;
+    [SerializeField] private Transform _leftFirePoint;
+    [SerializeField] private Transform _rightFirePoint;
+    [SerializeField] private Transform _leftSubFirePoint;
+    [SerializeField] private Transform _rightSubFirePoint;
 
-    public float cooldown = 1f;
-    public float cooldownTimer = 0f;
+    [SerializeField] private float _attackCooldown = 1f;
+    [SerializeField] private float _cooldownTimer = 0f;
 
     public int autoAttack = 0;
 
 
     private void Update()
     {
-        if (cooldownTimer > 0)
+        if (_cooldownTimer > 0)
         {
-            cooldownTimer -= Time.deltaTime;
+            _cooldownTimer -= Time.deltaTime;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -40,12 +41,12 @@ public class PlayerFire : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && autoAttack == 0 && cooldownTimer <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && autoAttack == 0 && _cooldownTimer <= 0)
         {
             Fire();
         }
 
-        if (autoAttack == 1 && cooldownTimer <= 0)
+        if (autoAttack == 1 && _cooldownTimer <= 0)
         {
             Fire();
         }
@@ -55,22 +56,32 @@ public class PlayerFire : MonoBehaviour
     {
         // 2. 총알 프리팹을 생성한다
         // Instantiate = 프리팹을 복사해서 (Monobehaviour를 상속받은)게임 오브젝트를 생성하고 씬에 넣어주는 기능
-        GameObject leftBullet = Instantiate(bulletPrefab);
-        GameObject rightBullet = Instantiate(bulletPrefab);
-        GameObject leftSubBullet = Instantiate(subBulletPrefab);
-        GameObject rightSubBullet = Instantiate(subBulletPrefab);
+        GameObject leftBullet = Instantiate(_bulletPrefab);
+        GameObject rightBullet = Instantiate(_bulletPrefab);
+        GameObject leftSubBullet = Instantiate(_subBulletPrefab);
+        GameObject rightSubBullet = Instantiate(_subBulletPrefab);
 
-        leftBullet.transform.position = leftFirePoint.position;
-        rightBullet.transform.position = rightFirePoint.position;
-        leftSubBullet.transform.position = leftSubFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
-        rightSubBullet.transform.position = rightSubFirePoint.position;
+        leftBullet.transform.position = _leftFirePoint.position;
+        rightBullet.transform.position = _rightFirePoint.position;
+        leftSubBullet.transform.position = _leftSubFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
+        rightSubBullet.transform.position = _rightSubFirePoint.position;
 
 
-        cooldownTimer = cooldown;
+        _cooldownTimer = _attackCooldown;
     }
 
     public void AddAttackSpeed(float attack)
     {
-        cooldown -= attack;
+        if (_attackCooldown > 0.1f)
+        {
+            // 사사오입 반올림 (변수를, ?자리까지, 사사오입을 사용해서)
+            _attackCooldown = (float)Math.Round(_attackCooldown - attack, 2, MidpointRounding.AwayFromZero);
+            ;
+            Debug.Log($"현재 공격 속도: {_attackCooldown}");
+        }
+        else
+        {
+            Debug.Log($"최대 공격 속도 {_attackCooldown}");
+        }
     }
 }
