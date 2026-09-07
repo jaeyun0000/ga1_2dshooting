@@ -16,6 +16,11 @@ public abstract class Enemy : MonoBehaviour
     [Header("드랍 아이템")]
     [SerializeField] private Item[] _itemPrefabs;
 
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
+
     private void Update()
     {
         Move();
@@ -25,7 +30,10 @@ public abstract class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        _animator.SetTrigger("Hit");
+        if (_animator != null)
+        {
+            _animator.SetTrigger("Hit");
+        }
 
         _health -= damage;
         if (_health <= 0)
