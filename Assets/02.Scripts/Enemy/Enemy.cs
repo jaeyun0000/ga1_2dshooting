@@ -7,6 +7,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _damage = 10;
+    [Header("Animator")]
+    [SerializeField] protected Animator _animator;
+
     [Header("아이템 확률")]
     [SerializeField] private int _itemDrop = 30;
 
@@ -22,6 +25,8 @@ public abstract class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        _animator.SetTrigger("Hit");
+
         _health -= damage;
         if (_health <= 0)
         {
