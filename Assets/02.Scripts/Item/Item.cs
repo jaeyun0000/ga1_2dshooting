@@ -10,6 +10,8 @@ public class Item : MonoBehaviour
     [SerializeField] private float _itemValue = 1;
     [SerializeField] private float _timer = 2f;
 
+    [SerializeField] private GameObject _itemEffectPrefab;
+
     private void Start()
     {
         GameObject playerObject = GameObject.FindWithTag("Player");
@@ -51,10 +53,12 @@ public class Item : MonoBehaviour
             switch (_itemType)
             {
                 case ItemType.PlayerAttackSpeed:
+                    ItemEffect();
                     _playerFire.AddAttackSpeed(_itemValue);
                     Debug.Log($"플레이어 공격속도: {_playerFire.AttackCooldown}");
                     break;
                 case ItemType.PlayerHealth:
+                    ItemEffect();
                     _player.AddHealth((int)_itemValue);
                     Debug.Log($"플레이어 체력: {player.Health}");
                     break;
@@ -62,6 +66,7 @@ public class Item : MonoBehaviour
                     // 캡슐화 :
                     // + 데이터 은닉 (Speed 속성 private 처리)
                     // + 행위를 통한 상태 변경 (SpeedUp 호출)
+                    ItemEffect();
                     _playerMove.AddMoveSpeed(_itemValue);
                     Debug.Log($"플레이어 이동속도: {_playerMove.Speed}");
                     break;
@@ -69,5 +74,10 @@ public class Item : MonoBehaviour
 
             Destroy(gameObject);
         }
+    }
+
+    private void ItemEffect()
+    {
+        Instantiate(_itemEffectPrefab, transform.position, Quaternion.identity);
     }
 }

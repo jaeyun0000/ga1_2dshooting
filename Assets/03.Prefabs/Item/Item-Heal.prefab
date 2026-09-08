@@ -109,6 +109,7 @@ MonoBehaviour:
   _itemType: 1
   _itemValue: 10
   _timer: 2
+  _itemEffectPrefab: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af, type: 3}
 --- !u!58 &5567445248688423913
 CircleCollider2D:
   m_ObjectHideFlags: 0

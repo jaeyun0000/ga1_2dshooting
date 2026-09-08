@@ -109,6 +109,7 @@ MonoBehaviour:
   _itemType: 2
   _itemValue: 1
   _timer: 2
+  _itemEffectPrefab: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
 --- !u!61 &-6284938747437255470
 BoxCollider2D:
   m_ObjectHideFlags: 0

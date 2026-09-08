@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -7,6 +8,11 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] private float _speed = 1f;
     public float Speed => _speed;
+
+    [Header("Trail")]
+    [SerializeField] private TrailRenderer _playerTrail;
+    [SerializeField] private float _trailLength = 1f;
+    private Coroutine _trailCoroutine;
 
     private float _minX = -3f;
     private float _maxX = 3f;
@@ -26,8 +32,7 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
 
-        SpeedUpDown();
-
+        UpdateTrailTime();
         // 게임에는 벡터라는 타입이 있다. 벡터는 (크기와 방향을 의미한다)
         // // 속도 = 방향 * 속력      // 매직 넘버란: 보는 사람에 따라 의미가 달라질 수 있는
         // // deltaTime: 이전 프레임으로부터 지금 프레임까지 시간이 얼마나 지났는지 MS로 반환
@@ -52,7 +57,8 @@ public class PlayerMove : MonoBehaviour
         _animator.SetInteger("x", (int)direction.x);
 
 
-        if (transform.position.y >= _maxY && direction.y > 0 || transform.position.y <= _minY && direction.y < 0)
+        if (transform.position.y >= _maxY && direction.y > 0 ||
+            transform.position.y <= _minY && direction.y < 0)
         {
             direction.y = 0;
         }
@@ -64,27 +70,69 @@ public class PlayerMove : MonoBehaviour
 
         if (transform.position.x <= _minX)
         {
-            transform.position = new Vector2(_maxX - 0.1f, transform.position.y);
+            WarpX(_maxX - 0.1f);
         }
-
-        if (transform.position.x >= _maxX)
+        else if (transform.position.x >= _maxX)
         {
-            transform.position = new Vector2(_minX + 0.1f, transform.position.y);
+            WarpX(_minX + 0.1f);
         }
     }
 
-    private void SpeedUpDown()
+    private void WarpX(float targetX)
     {
-        // 3. 키보드 E키를 누르면 스피드 Up! Q키를 누르면 스피드 Down!
-        if (Input.GetKeyDown(KeyCode.E))
+        if (_playerTrail != null)
         {
-            _speed += 1f;
+            // Trail 기록 끄기
+            _playerTrail.emitting = false;
+
+            // 현재까지 생성된 Trail 제거
+            _playerTrail.Clear();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        Vector2 newPosition = transform.position;
+        newPosition.x = targetX;
+        transform.position = newPosition;
+
+        if (_playerTrail != null)
         {
-            _speed -= 1f;
+            if (_trailCoroutine != null)
+            {
+                StopCoroutine(_trailCoroutine);
+            }
+
+            _trailCoroutine = StartCoroutine(RestartTrail());
         }
+    }
+
+    private IEnumerator RestartTrail()
+    {
+        // 순간이동한 프레임은 Trail을 생성하지 않는다.
+        yield return null;  // <- 대표적으로 다음 프레임까지 기다려라
+
+        // 혹시 남아있는 Trail 정보를 한 번 더 제거
+        _playerTrail.Clear();
+
+        // 새로운 위치에서 Trail 생성 시작
+        _playerTrail.emitting = true;
+
+        _trailCoroutine = null;
+    }
+
+    private void UpdateTrailTime()
+    {
+        if (_playerTrail == null)
+        {
+            return;
+        }
+
+        if (_speed <= 0f)
+        {
+            return;
+        }
+
+        // 거리 = 속도 x 시간
+        // 시간 = 원하는 거리 / 속도
+        _playerTrail.time = _trailLength / _speed;
     }
 
     public void AddMoveSpeed(float speed)
