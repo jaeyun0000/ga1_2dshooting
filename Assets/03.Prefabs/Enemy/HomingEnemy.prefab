@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HomingEnemy
   _health: 100
   _moveSpeed: 2
-  _damage: 10
+  _damage: 20
   _animator: {fileID: 8295854896533951541}
   _itemDrop: 30
   _itemPrefabs:
