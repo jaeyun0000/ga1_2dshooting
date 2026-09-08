@@ -18,6 +18,7 @@ public class PlayerFire : MonoBehaviour
 
     [SerializeField] private float _attackCooldown = 1f;
     [SerializeField] private float _cooldownTimer = 0f;
+    public float AttackCooldown => _attackCooldown;
 
     public int autoAttack = 0;
 

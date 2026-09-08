@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] Animator _animator;
 
     [SerializeField] private float _speed = 1f;
+    public float Speed => _speed;
 
     private float _minX = -3f;
     private float _maxX = 3f;
@@ -33,6 +34,11 @@ public class PlayerMove : MonoBehaviour
 
         // 새로운 위치 = 현재 위치 + (방향 * 속력 * 시간)
         // transform.position = transform.position + (Vector3)direction * Speed * Time.deltaTime;
+    }
+
+    public float GetSpeed()
+    {
+        return _speed;
     }
 
     private void Move()

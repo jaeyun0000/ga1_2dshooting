@@ -52,12 +52,18 @@ public class Item : MonoBehaviour
             {
                 case ItemType.PlayerAttackSpeed:
                     _playerFire.AddAttackSpeed(_itemValue);
+                    Debug.Log($"플레이어 공격속도: {_playerFire.AttackCooldown}");
                     break;
                 case ItemType.PlayerHealth:
+                    Debug.Log($"플레이어 체력: {player.Health}");
                     _player.AddHealth((int)_itemValue);
                     break;
                 case ItemType.PlayerMoveSpeed:
+                    // 캡슐화 :
+                    // + 데이터 은닉 (Speed 속성 private 처리)
+                    // + 행위를 통한 상태 변경 (SpeedUp 호출)
                     _playerMove.AddMoveSpeed(_itemValue);
+                    Debug.Log($"플레이어 이동속도: {_playerMove.Speed}");
                     break;
             }
 
