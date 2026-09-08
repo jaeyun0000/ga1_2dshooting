@@ -55,8 +55,8 @@ public class Item : MonoBehaviour
                     Debug.Log($"플레이어 공격속도: {_playerFire.AttackCooldown}");
                     break;
                 case ItemType.PlayerHealth:
-                    Debug.Log($"플레이어 체력: {player.Health}");
                     _player.AddHealth((int)_itemValue);
+                    Debug.Log($"플레이어 체력: {player.Health}");
                     break;
                 case ItemType.PlayerMoveSpeed:
                     // 캡슐화 :
