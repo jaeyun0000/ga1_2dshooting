@@ -1251,7 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   _animator: {fileID: 1427838920}
   _speed: 1
-  playerTrail: {fileID: 1109538346}
+  _playerTrail: {fileID: 1109538346}
   _trailLength: 1
 --- !u!212 &1427838914
 SpriteRenderer:
