@@ -16,6 +16,9 @@ public abstract class Enemy : MonoBehaviour
     [Header("드랍 아이템")]
     [SerializeField] private Item[] _itemPrefabs;
 
+    // - 죽을 때 생성할 이펙트 프리팹
+    [SerializeField] private GameObject _deathEffectPrefab;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -68,6 +71,8 @@ public abstract class Enemy : MonoBehaviour
         int dropItem = UnityEngine.Random.Range(0, _itemPrefabs.Length);
         Vector2 dropPosition = transform.position;
 
+        SpawnDeathEffect();
+
         Destroy(gameObject);
 
         if (_itemPrefabs.Length > 0 && _itemDrop > Random.Range(0, 100))
@@ -75,5 +80,10 @@ public abstract class Enemy : MonoBehaviour
             Instantiate(_itemPrefabs[dropItem], dropPosition, Quaternion.identity);
             // Quaternion.identity <- 회전 방지
         }
+    }
+
+    private void SpawnDeathEffect()
+    {
+        Instantiate(_deathEffectPrefab, transform.position, Quaternion.identity);
     }
 }

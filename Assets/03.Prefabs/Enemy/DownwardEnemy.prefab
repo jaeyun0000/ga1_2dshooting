@@ -116,6 +116,7 @@ MonoBehaviour:
   - {fileID: 83511513893558239, guid: f98b31bf24855db499b03add9c578a11, type: 3}
   - {fileID: 1385972425206476423, guid: c064529c7c70e7f4c8e2bba6d1082220, type: 3}
   - {fileID: 7617211968093735338, guid: d9d96c49c5717fb40be8c6fc203fff8b, type: 3}
+  _deathEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!61 &7101342310455537936
 BoxCollider2D:
   m_ObjectHideFlags: 0
