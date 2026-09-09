@@ -7,8 +7,6 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _damage = 10;
-    [Header("Animator")]
-    [SerializeField] protected Animator _animator;
 
     [Header("아이템 확률")]
     [SerializeField] private int _itemDrop = 30;
@@ -19,9 +17,13 @@ public abstract class Enemy : MonoBehaviour
     // - 죽을 때 생성할 이펙트 프리팹
     [SerializeField] private GameObject _deathEffectPrefab;
 
+    private Animator _animator;
+    private AudioSource _damagedAudioSource;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _damagedAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -37,6 +39,8 @@ public abstract class Enemy : MonoBehaviour
         {
             _animator.SetTrigger("Hit");
         }
+
+        _damagedAudioSource.Play();
 
         _health -= damage;
         if (_health <= 0)

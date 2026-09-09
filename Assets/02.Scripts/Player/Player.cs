@@ -41,10 +41,17 @@ public class Player : MonoBehaviour
     //     _health = value;
     // }
 
+    private AudioSource _damagedAudioSource;
+
+    private void Awake()
+    {
+        _damagedAudioSource = GetComponent<AudioSource>();
+    }
 
     public void TakeDamage(int damage)
     {
         _health -= damage;
+        _damagedAudioSource.Play();
         if (_health <= 0)
         {
             SpawnDeathEffect();
