@@ -1214,6 +1214,37 @@ Transform:
   - {fileID: 54341132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1410012010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1410012011}
+  m_Layer: 0
+  m_Name: PlayerBombLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1410012011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410012010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427838912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1258,7 @@ GameObject:
   - component: {fileID: 1427838913}
   - component: {fileID: 1427838916}
   - component: {fileID: 1427838919}
+  - component: {fileID: 1427838921}
   - component: {fileID: 1427838918}
   - component: {fileID: 1427838917}
   - component: {fileID: 1427838920}
@@ -1466,6 +1498,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1427838921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427838912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c1fc3008c88c349926ecb652c43691, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBomb
+  _bombPrefab: {fileID: 7892260086325425776, guid: 74c901ffe31b2594eadd18a7dbc155ad, type: 3}
+  _bombLocation: {fileID: 1410012011}
+  _cooldown: 10
+  _cooldownTimer: 0
 --- !u!1 &1550731468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,6 +1922,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 1410012011}
   - {fileID: 1427838915}
   - {fileID: 1923125902}
   - {fileID: 1183949596}

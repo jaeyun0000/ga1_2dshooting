@@ -68,7 +68,6 @@ public abstract class Enemy : MonoBehaviour
         // Todo: Scrptable Object를 사용해서 리팩토링
         // 이유1: 배열을 사용했지만 각 아이템이 어떤 프리팹인지 알 수가 없음
         // 이유2: 각 Enemy 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵고 가독성 저하
-        int dropItem = UnityEngine.Random.Range(0, _itemPrefabs.Length);
         Vector2 dropPosition = transform.position;
 
         SpawnDeathEffect();
@@ -77,6 +76,8 @@ public abstract class Enemy : MonoBehaviour
 
         if (_itemPrefabs.Length > 0 && _itemDrop > Random.Range(0, 100))
         {
+            int dropItem = UnityEngine.Random.Range(0, _itemPrefabs.Length);
+
             Instantiate(_itemPrefabs[dropItem], dropPosition, Quaternion.identity);
             // Quaternion.identity <- 회전 방지
         }
