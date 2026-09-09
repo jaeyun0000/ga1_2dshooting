@@ -7,6 +7,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _damage = 10;
+    private bool _isDead = false;
 
     [Header("아이템 확률")]
     [SerializeField] private int _itemDrop = 30;
@@ -35,6 +36,11 @@ public abstract class Enemy : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         if (_animator != null)
         {
             _animator.SetTrigger("Hit");
@@ -69,6 +75,13 @@ public abstract class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (_isDead)
+        {
+            return;
+        }
+
+        _isDead = true;
+
         // Todo: Scrptable Object를 사용해서 리팩토링
         // 이유1: 배열을 사용했지만 각 아이템이 어떤 프리팹인지 알 수가 없음
         // 이유2: 각 Enemy 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵고 가독성 저하

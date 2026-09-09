@@ -5,6 +5,18 @@ public class Bullet : MonoBehaviour
     public int damage = 40;
     public float moveSpeed = 8f;
 
+    private AudioSource _audioSource;
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        if (_audioSource != null)
+        {
+            _audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
+            _audioSource.Play();
+        }
+    }
+
     private void Update()
     {
         Vector2 direction = Vector2.up; // new Vector2(1, 0);
