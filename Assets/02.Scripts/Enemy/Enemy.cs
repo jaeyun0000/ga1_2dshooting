@@ -51,6 +51,9 @@ public abstract class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
+            ScoreManager scoreManager = GameObject.FindAnyObjectByType<ScoreManager>();
+            scoreManager.AddScore(100);
+
             Die();
         }
     }

@@ -12,7 +12,21 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _currentScoreText;
 
 
+    public void AddScore(int score)
+    {
+        _currentScore += score;
+        if (_currentScore > _bestScore)
+        {
+            _bestScore = _currentScore;
+        }
+    }
+
     private void Update()
+    {
+        Refresh();
+    }
+
+    private void Refresh()
     {
         _bestScoreText.text = $"BestScore: {_bestScore}";
         _currentScoreText.text = $"Score: {_currentScore}";
