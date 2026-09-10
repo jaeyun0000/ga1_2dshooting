@@ -4,7 +4,8 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     // static (정적)
-    public static ScoreManager Instance;
+    private static ScoreManager _instance;
+    public static ScoreManager Instance => _instance;
 
     // 관리: 특정 데이터에 대한 무결성과 생성, 읽기, 수정, 삭제 등과 관련된 로직
     private int _bestScore;
@@ -17,7 +18,14 @@ public class ScoreManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        // 늦게 태어난 매니저는 나는 늦었네~ 하면서 자살
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        _instance = this;
     }
 
     public void AddScore(int score)
