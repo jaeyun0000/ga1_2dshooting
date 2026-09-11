@@ -58,13 +58,15 @@ public class PlayerFire : MonoBehaviour
         // 2. 총알 프리팹을 생성한다
         // Instantiate = 프리팹을 복사해서 (Monobehaviour를 상속받은)게임 오브젝트를 생성하고 씬에 넣어주는 기능
 
-        Bullet leftBullet = BulletPool.Instance.GetBullet();
-        Bullet rightBullet = BulletPool.Instance.GetBullet();
-        GameObject leftSubBullet = Instantiate(_subBulletPrefab);
-        GameObject rightSubBullet = Instantiate(_subBulletPrefab);
+        Bullet leftBullet = BulletPool.Instance.GetBullet(BulletType.Main);
+        Bullet rightBullet = BulletPool.Instance.GetBullet(BulletType.Main);
+
+        Bullet leftSubBullet = BulletPool.Instance.GetBullet(BulletType.Sub);
+        Bullet rightSubBullet = BulletPool.Instance.GetBullet(BulletType.Sub);
 
         leftBullet.transform.position = _leftFirePoint.position;
         rightBullet.transform.position = _rightFirePoint.position;
+
         leftSubBullet.transform.position = _leftSubFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
         rightSubBullet.transform.position = _rightSubFirePoint.position;
 

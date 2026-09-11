@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    [SerializeField] private BulletType _bulletType;
+    public BulletType BulletType => _bulletType;
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
