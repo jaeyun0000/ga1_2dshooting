@@ -9,11 +9,11 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int _damage = 10;
     private bool _isDead = false;
 
-    [Header("아이템 확률")]
+    [Header("아이템 드랍 확률")]
     [SerializeField] private int _itemDrop = 30;
 
     [Header("드랍 아이템")]
-    [SerializeField] private Item[] _itemPrefabs;
+    [SerializeField] private ItemSpawnDataTableSO _itemDataTable;
 
     // - 죽을 때 생성할 이펙트 프리팹
     [SerializeField] private GameObject _deathEffectPrefab;
@@ -48,7 +48,6 @@ public abstract class Enemy : MonoBehaviour
         _health -= damage;
         if (_health <= 0)
         {
-
             // 싱글톤 패턴
             // 1. 전역적으로 접근 가능하다.
             // 2. 인스턴스(생성된 객체)가 하나임을 보장한다.
@@ -95,12 +94,29 @@ public abstract class Enemy : MonoBehaviour
 
         Destroy(gameObject);
 
-        if (_itemPrefabs.Length > 0 && _itemDrop > Random.Range(0, 100))
+        if (_itemDataTable != null && _itemDrop > Random.Range(0, 100))
         {
-            int dropItem = UnityEngine.Random.Range(0, _itemPrefabs.Length);
+            int totalWeight = 0;
+            foreach (ItemSpawnData data in _itemDataTable.Datas)
+            {
+                totalWeight += data.Weight;
+            }
 
-            Instantiate(_itemPrefabs[dropItem], dropPosition, Quaternion.identity);
-            // Quaternion.identity <- 회전 방지
+            // 2. 전체 가중치 범위에서 랜검한 정수를 뽑는다.
+            int randomWeight = Random.Range(0, totalWeight);
+
+            // 3. 가중치를 누적하면서 선택된 구간을 찾는다.
+            int cumulativeWeight = 0;
+            foreach (ItemSpawnData data in _itemDataTable.Datas)
+            {
+                cumulativeWeight += data.Weight; // 누적
+                if (randomWeight < cumulativeWeight) // 구간
+                {
+                    GameObject item = Instantiate(data.ItemPrefab, dropPosition, Quaternion.identity);
+                    // Quaternion.identity <- 회전 방지
+                    break;
+                }
+            }
         }
     }
 
