@@ -5,4 +5,5 @@ public class ItemSpawnData
 {
     public GameObject ItemPrefab;
     public int Weight;
+    public ItemType ItemType;
 }

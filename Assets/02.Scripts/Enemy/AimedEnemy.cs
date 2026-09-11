@@ -5,8 +5,10 @@ public class AimedEnemy : Enemy
     private GameObject _player;
     private Vector2 _direction;
 
-    private void Start()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+
         _player = GameObject.FindWithTag("Player");
         if (_player == null)
         {

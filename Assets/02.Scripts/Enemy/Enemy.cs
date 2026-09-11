@@ -4,10 +4,15 @@ using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour
 {
+    private int _maxHP;
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2f;
     [SerializeField] protected int _damage = 10;
     private bool _isDead = false;
+
+    [Header("Enemy Type")]
+    [SerializeField] private EnemyType _enemyType;
+    public EnemyType EnemyType => _enemyType;
 
     [Header("아이템 드랍 확률")]
     [SerializeField] private int _itemDrop = 30;
@@ -25,11 +30,19 @@ public abstract class Enemy : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _damagedAudioSource = GetComponent<AudioSource>();
+        _maxHP = _health;
     }
 
     private void Update()
     {
         Move();
+    }
+
+    protected virtual void OnEnable()
+    {
+        _health = _maxHP;
+
+        _isDead = false;
     }
 
     protected abstract void Move();
@@ -85,13 +98,12 @@ public abstract class Enemy : MonoBehaviour
 
         _isDead = true;
 
-
         Vector2 dropPosition = transform.position;
 
         SpawnDeathEffect();
 
-        Destroy(gameObject);
-
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
 
         if (_itemDataTable != null && _itemDrop > Random.Range(0, 100))
         {
@@ -109,8 +121,8 @@ public abstract class Enemy : MonoBehaviour
                 cumulativeWeight += data.Weight; // 누적
                 if (randomWeight < cumulativeWeight) // 구간
                 {
-                    GameObject item = Instantiate(data.ItemPrefab, dropPosition, Quaternion.identity);
-                    // Quaternion.identity <- 회전 방지
+                    Item item = ItemPool.Instance.GetItem(data.ItemType);
+                    item.transform.position = dropPosition;
                     break;
                 }
             }

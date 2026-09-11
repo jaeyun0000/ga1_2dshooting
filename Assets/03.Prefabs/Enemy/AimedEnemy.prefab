@@ -111,6 +111,8 @@ MonoBehaviour:
   _health: 100
   _moveSpeed: 2
   _damage: 10
+  _enemyType: 1
+  _itemDrop: 30
   _itemDataTable: {fileID: 11400000, guid: 1b864987fe889a643b5661871c2bc124, type: 2}
   _deathEffectPrefab: {fileID: 7226888052703040409, guid: 7ec363c8df426644ea85f8d6d570561c, type: 3}
 --- !u!61 &3056344146583705551

@@ -7,6 +7,8 @@ public class Item : MonoBehaviour
     private PlayerFire _playerFire;
     private float _moveSpeed = 4f;
     [SerializeField] private ItemType _itemType;
+    public ItemType ItemType => _itemType;
+
     [SerializeField] private float _itemValue = 1;
     [SerializeField] private float _timer = 2f;
 
@@ -72,7 +74,8 @@ public class Item : MonoBehaviour
                     break;
             }
 
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
