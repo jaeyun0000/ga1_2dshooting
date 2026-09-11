@@ -85,14 +85,13 @@ public abstract class Enemy : MonoBehaviour
 
         _isDead = true;
 
-        // Todo: Scrptable Object를 사용해서 리팩토링
-        // 이유1: 배열을 사용했지만 각 아이템이 어떤 프리팹인지 알 수가 없음
-        // 이유2: 각 Enemy 스폰 확률을 매직 넘버로 하드코딩해서 유지보수가 어렵고 가독성 저하
+
         Vector2 dropPosition = transform.position;
 
         SpawnDeathEffect();
 
         Destroy(gameObject);
+
 
         if (_itemDataTable != null && _itemDrop > Random.Range(0, 100))
         {
@@ -102,10 +101,8 @@ public abstract class Enemy : MonoBehaviour
                 totalWeight += data.Weight;
             }
 
-            // 2. 전체 가중치 범위에서 랜검한 정수를 뽑는다.
             int randomWeight = Random.Range(0, totalWeight);
 
-            // 3. 가중치를 누적하면서 선택된 구간을 찾는다.
             int cumulativeWeight = 0;
             foreach (ItemSpawnData data in _itemDataTable.Datas)
             {
