@@ -64,6 +64,7 @@ public class PlayerFire : MonoBehaviour
         leftSubBullet.transform.position = _leftSubFirePoint.position; // 생성한 총알의 위치를 총구의 위치로
         rightSubBullet.transform.position = _rightSubFirePoint.position;
 
+        float finalFireRate = _attackCooldown - UpgradeManager.Instance.Upgrades[1].CurrentValue;
         _cooldownTimer = _attackCooldown;
     }
 

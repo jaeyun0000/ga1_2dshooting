@@ -10,6 +10,8 @@ public class ScoreManager : MonoBehaviour
     // 관리: 특정 데이터에 대한 무결성과 생성, 읽기, 수정, 삭제 등과 관련된 로직
     private int _bestScore;
     private int _currentScore;
+    public int Score => _currentScore;
+    public int BestScore => _bestScore;
 
     // 저장키
     private const string SaveKey = "BestScore";
@@ -59,6 +61,12 @@ public class ScoreManager : MonoBehaviour
             PlayerPrefs.Save();
         }
 
+        Refresh();
+    }
+
+    public void SpendScore(int amount)
+    {
+        _currentScore -= amount;
         Refresh();
     }
 

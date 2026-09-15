@@ -108,9 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed16581ea0551f4a9dec45490a27050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DownwardEnemy
+  _baseHealth: 80
   _health: 100
   _moveSpeed: 2
   _damage: 5
+  _enemyType: 0
+  _itemDrop: 30
   _itemDataTable: {fileID: 11400000, guid: 1b864987fe889a643b5661871c2bc124, type: 2}
   _deathEffectPrefab: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
 --- !u!61 &7101342310455537936

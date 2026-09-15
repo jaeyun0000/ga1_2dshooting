@@ -4,6 +4,7 @@ using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour
 {
+    [SerializeField] private int _baseHealth; // 기준 체력
     private int _maxHP;
     [SerializeField] private int _health = 100;
     [SerializeField] protected float _moveSpeed = 2f;
@@ -36,6 +37,11 @@ public abstract class Enemy : MonoBehaviour
     private void Update()
     {
         Move();
+    }
+
+    public void SetHealthBalance(float multiplier)
+    {
+        _health = (int)(_baseHealth * multiplier);
     }
 
     protected virtual void OnEnable()

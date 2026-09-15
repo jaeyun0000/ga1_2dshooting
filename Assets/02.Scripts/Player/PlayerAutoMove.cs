@@ -38,7 +38,8 @@ public class PlayerAutoMove : MonoBehaviour
         direction.Normalize();
 
         // 3. 속도에 맞게 이동을한다.
-        transform.position += direction * _speed * Time.deltaTime;
+        float finalSpeed = _speed * UpgradeManager.Instance.Upgrades[2].CurrentValue;
+        transform.position += direction * finalSpeed * Time.deltaTime;
     }
 
     private void FindNearestTarget()

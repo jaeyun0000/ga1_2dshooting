@@ -52,21 +52,20 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal"); // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
         float v = Input.GetAxisRaw("Vertical"); // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
 
-        Vector2 direction = new Vector2(h, v);
+        Vector2 normalizedDirection = new Vector2(h, v).normalized;
 
-        _animator.SetInteger("x", (int)direction.x);
+        _animator.SetInteger("x", (int)normalizedDirection.x);
 
-
-        if (transform.position.y >= _maxY && direction.y > 0 ||
-            transform.position.y <= _minY && direction.y < 0)
+        if (transform.position.y >= _maxY && normalizedDirection.y > 0 ||
+            transform.position.y <= _minY && normalizedDirection.y < 0)
         {
-            direction.y = 0;
+            normalizedDirection.y = 0;
         }
 
-
-        Vector2 nomalizedSpeed = (direction.normalized * _speed); // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
-        transform.Translate(nomalizedSpeed * Time.deltaTime);
-
+        float finalSpeed =
+            _speed + UpgradeManager.Instance.Upgrades[2].CurrentValue; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        Vector2 newPosition = transform.position + (Vector3)normalizedDirection * finalSpeed * Time.deltaTime;
+        transform.position = newPosition;
 
         if (transform.position.x <= _minX)
         {
@@ -107,7 +106,7 @@ public class PlayerMove : MonoBehaviour
     private IEnumerator RestartTrail()
     {
         // 순간이동한 프레임은 Trail을 생성하지 않는다.
-        yield return null;  // <- 대표적으로 다음 프레임까지 기다려라
+        yield return null; // <- 대표적으로 다음 프레임까지 기다려라
 
         // 혹시 남아있는 Trail 정보를 한 번 더 제거
         _playerTrail.Clear();
