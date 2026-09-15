@@ -49,8 +49,8 @@ public class PlayerMove : MonoBehaviour
     private void Move()
     {
         // GetAxis / GetAxisRaw 차이는 속도가 점차 증가/감소하냐, 바로 증가/감소 하냐의 차이
-        float h = Input.GetAxisRaw("Horizontal"); // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
-        float v = Input.GetAxisRaw("Vertical"); // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
+        float h = SimpleInput.GetAxisRaw("Horizontal"); // 키보드 좌/우 입력 상태에 따라 -1f ~ 0 ~ 1f
+        float v = SimpleInput.GetAxisRaw("Vertical"); // 키보드 상/하 입력 상태에 따라 -1f ~ 0 ~ 1f
 
         Vector2 normalizedDirection = new Vector2(h, v).normalized;
 
