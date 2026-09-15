@@ -62,7 +62,8 @@ public class PlayerMove : MonoBehaviour
             normalizedDirection.y = 0;
         }
 
-        float finalSpeed = _speed + UpgradeManager.Instance.Upgrades[2].CurrentValue; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
+        float finalSpeed =
+            _speed + UpgradeManager.Instance.Upgrades[2].CurrentValue; // 벡터의 길이를 1로 만들어주는 것 (즉, 방향만 유지한다.)
         Vector2 newPosition = transform.position + (Vector3)normalizedDirection * finalSpeed * Time.deltaTime;
         transform.position = newPosition;
 
@@ -123,6 +124,8 @@ public class PlayerMove : MonoBehaviour
             return;
         }
 
+        float finalSpeed = _speed + UpgradeManager.Instance.Upgrades[2].CurrentValue;
+
         if (_speed <= 0f)
         {
             return;
@@ -130,7 +133,7 @@ public class PlayerMove : MonoBehaviour
 
         // 거리 = 속도 x 시간
         // 시간 = 원하는 거리 / 속도
-        _playerTrail.time = _trailLength / _speed;
+        _playerTrail.time = _trailLength / finalSpeed;
     }
 
     public void AddMoveSpeed(float speed)
