@@ -65,7 +65,7 @@ public class PlayerFire : MonoBehaviour
         rightSubBullet.transform.position = _rightSubFirePoint.position;
 
         float finalFireRate = _attackCooldown - UpgradeManager.Instance.Upgrades[1].CurrentValue;
-        _cooldownTimer = _attackCooldown;
+        _cooldownTimer = Mathf.Max(0.1f, finalFireRate);
     }
 
     public void AddAttackSpeed(float attack)
